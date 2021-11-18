@@ -31,7 +31,7 @@ type (
 )
 
 const (
-	builtInType              = `BUILTIN_TYPE` // 系统自带 type
+	builtInType              = `BUILTIN_TYPE_BIN` // 系统自带 type
 	defaultBind              = `/usr/bin/type`
 	TypeAlias    commandType = "alias"
 	TypeKeyword  commandType = "keyword"
@@ -325,7 +325,7 @@ func (r *Runner) check() error {
 		r.flagHandlers = r.createHandlers()
 	}
 	if r.bin == "" {
-		return errors.New(`miss init type built env`)
+		return errors.New(`miss init type built env:`+builtInType)
 	}
 	return nil
 }
