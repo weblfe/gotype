@@ -17,7 +17,7 @@ var (
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "type",
+	Use:   "gotype",
 	Short: "Displays the type of the specified command",
 	Long:  `Using the type command,you can view the type of a specified command and determine whether the command is an internal command or an external command.`,
 	// Uncomment the following line if your bare application
@@ -55,7 +55,7 @@ func init() {
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.type.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.gotype.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -79,7 +79,7 @@ func initConfig() {
 
 		// Search config in home directory with name ".type" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigName(".type")
+		viper.SetConfigName(".gotype")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
