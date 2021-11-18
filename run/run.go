@@ -31,14 +31,15 @@ type (
 )
 
 const (
-	builtInType              = `BUILTIN_TYPE_BIN` // 系统自带 type
-	defaultBind              = `/usr/bin/type`
-	TypeAlias    commandType = "alias"
-	TypeKeyword  commandType = "keyword"
-	TypeFunction commandType = "function"
-	TypeBuiltin  commandType = "builtin"
-	TypeFile     commandType = "file"
-	TypeUnFound  commandType = "unfound"
+	builtInType                  = `BUILTIN_TYPE_BIN` // 系统自带 type
+	defaultBind                  = `/usr/bin/type`
+	defaultWhichBind             = `/usr/bin/which` // which 代替
+	TypeAlias        commandType = "alias"
+	TypeKeyword      commandType = "keyword"
+	TypeFunction     commandType = "function"
+	TypeBuiltin      commandType = "builtin"
+	TypeFile         commandType = "file"
+	TypeUnFound      commandType = "unfound"
 )
 
 var (
@@ -325,7 +326,11 @@ func (r *Runner) check() error {
 		r.flagHandlers = r.createHandlers()
 	}
 	if r.bin == "" {
-		return errors.New(`miss init type built env:`+builtInType)
+		r.bin = defaultWhichBind
+		if _, err := os.Stat(r.bin); err == nil {
+			return nil
+		}
+		return errors.New(`miss init type built env:` + builtInType)
 	}
 	return nil
 }
